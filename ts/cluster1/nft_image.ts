@@ -4,8 +4,11 @@ import { createGenericFile, createSignerFromKeypair, signerIdentity } from "@met
 import { irysUploader } from "@metaplex-foundation/umi-uploader-irys"
 import { readFile } from "fs/promises"
 
+
+
 // Create a devnet connection
 const umi = createUmi('https://api.devnet.solana.com');
+// const keypair = Keypair.fromSecretKey(new Uint8Array(wallet));
 
 let keypair = umi.eddsa.createKeypairFromSecretKey(new Uint8Array(wallet));
 const signer = createSignerFromKeypair(umi, keypair);
@@ -18,13 +21,19 @@ umi.use(signerIdentity(signer));
         //1. Load image
         //2. Convert image to generic file.
         //3. Upload image
-
+        const image = await readFile("/home/rajasree/solana-starter/ts/cluster1/generug.png");
+        const genericImg = createGenericFile(image, "generug.png", {
+            displayName: "generug",
+            uniqueName: "generug", contentType: "image/png",
+            extension: "png", tags: [{ name: "generug", value: "generug" }]
+        });
         // const image = ???
 
         // const [myUri] = ??? 
-        // console.log("Your image URI: ", myUri);
+        const [myUri] = await umi.uploader.upload([genericImg]);
+        console.log("Your image URI: ", myUri);
     }
-    catch(error) {
+    catch (error) {
         console.log("Oops.. Something went wrong", error);
     }
 })();

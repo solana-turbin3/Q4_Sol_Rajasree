@@ -14,30 +14,53 @@ umi.use(signerIdentity(signer));
 
 (async () => {
     try {
+        console.log("hello1");
         // Follow this JSON structure
         // https://docs.metaplex.com/programs/token-metadata/changelog/v1.0#json-structure
 
         // const image = ???
         // const metadata = {
-        //     name: "?",
-        //     symbol: "?",
-        //     description: "?",
-        //     image: "?",
+        //     name: "hellogene",
+        //     symbol: "GEN",
+        //     desciption: "Gene is a generative art project that creates unique images using a neural network.",
+        //     image: "https://devnet.irys.xyz/D61NhW9td1DBw9vHCDYWjCEJfXbE5HVMcypKtWhs8Txj",
         //     attributes: [
-        //         {trait_type: '?', value: '?'}
+        //         {trait_type: 'rarity', value: 'common'},
+        //         {trait_type: 'background', value: 'pink'},
+        //         {trait_type: 'color', value: 'red'}
         //     ],
         //     properties: {
         //         files: [
         //             {
         //                 type: "image/png",
-        //                 uri: "?"
+        //                 uri: "https://devnet.irys.xyz/JBWY9P7x6VVhQNiNw83YQdpbKuBRrbwkPsmbkpti8jQy",
+
         //             },
-        //         ]
+        //         ],
         //     },
-        //     creators: []
+        //     creators: [],
         // };
-        // const myUri = ???
-        // console.log("Your metadata URI: ", myUri);
+
+        const metadata = {
+            name: "hellogene",
+            symbol: "GEN",
+            description: "Gene is a generative art project that creates unique images using a neural network.",
+            image: "https://devnet.irys.xyz/D61NhW9td1DBw9vHCDYWjCEJfXbE5HVMcypKtWhs8Txj",
+            attributes: [
+                {trait_type: 'rarity', value: 'common'}
+            ],
+            properties: {
+                files: [
+                    {
+                        type: "image/png",
+                        uri: "https://devnet.irys.xyz/D61NhW9td1DBw9vHCDYWjCEJfXbE5HVMcypKtWhs8Txj"
+                    },
+                ]
+            },
+            creators: []
+        };
+        const myUri = await umi.uploader.uploadJson(metadata);
+        console.log("Your metadata URI: ", myUri);
     }
     catch(error) {
         console.log("Oops.. Something went wrong", error);

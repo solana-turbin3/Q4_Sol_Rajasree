@@ -13,3 +13,4 @@ import prompt from 'prompt'
     // Print out wallet
     console.log(`Your wallet file is:\n[${wallet}]`);
 })()
+
